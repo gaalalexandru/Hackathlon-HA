@@ -25,6 +25,6 @@ int main(void)
 		} else {
 			PORTB &= ~(1 << 5);
 		}
-		_delay_ms(500);
+		_delay_ms(600);
     }
 }
