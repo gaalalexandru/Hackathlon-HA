@@ -29,6 +29,7 @@ void init_LCD(void){
 
 int main(void){
 	
+	
 	i2c_init();
 	init_LCD();
 	
