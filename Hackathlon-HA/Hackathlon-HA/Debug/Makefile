@@ -37,8 +37,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Hackathlon-HA.c \
-../I2C_master.c
+../Hackathlon-HA.c
 
 
 PREPROCESSING_SRCS += 
@@ -48,20 +47,16 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Hackathlon-HA.o \
-I2C_master.o
+Hackathlon-HA.o
 
 OBJS_AS_ARGS +=  \
-Hackathlon-HA.o \
-I2C_master.o
+Hackathlon-HA.o
 
 C_DEPS +=  \
-Hackathlon-HA.d \
-I2C_master.d
+Hackathlon-HA.d
 
 C_DEPS_AS_ARGS +=  \
-Hackathlon-HA.d \
-I2C_master.d
+Hackathlon-HA.d
 
 OUTPUT_FILE_PATH +=Hackathlon-HA.elf
 
@@ -78,13 +73,6 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 ./Hackathlon-HA.o: .././Hackathlon-HA.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-./I2C_master.o: .././I2C_master.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

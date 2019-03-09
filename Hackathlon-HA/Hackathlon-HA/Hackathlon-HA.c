@@ -1,9 +1,3 @@
-/*
- * Hackathlon_HA.c
- *
- * Created: 3/9/2019 9:30:36 AM
- *  Author: Ninja
- */ 
 
 #ifndef F_CPU
 #define F_CPU 16000000
@@ -14,28 +8,19 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+#include <I2C_master.h>
 
-#define LCD_write 0x4E
+#define LCD_WRITE 0X4E;
 
-LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 
-void setup()
+int main()
 {
-	lcd.init();                      // initialize the lcd
-	lcd.backlight();
-}
-
-void loop()
-{
-	// when characters arrive over the serial port...
-		// wait a bit for the entire message to arrive
-		// clear the screen
-		lcd.clear();
-		// read all the available characters
-			lcd.init(LCD_write);
-			lcd.write("Nu!");
-		}
-	}
+	i2c_init;
+	i2c_send_start();
+	i2c_send_adr(0x4E);
+	i2c_write("La alba ca zapada!");
+	i2c_send_stop();
+	
+	
+	return 0;
 }

@@ -4,5 +4,3 @@
 
 Hackathlon-HA.c
 
-I2C_master.c
-
