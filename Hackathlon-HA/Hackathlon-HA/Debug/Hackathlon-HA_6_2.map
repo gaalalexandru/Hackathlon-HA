@@ -10,21 +10,6 @@ Discarded input sections
  .text          0x00000000        0x0 Hackathlon-HA.o
  .data          0x00000000        0x0 Hackathlon-HA.o
  .bss           0x00000000        0x0 Hackathlon-HA.o
- .text          0x00000000        0x0 I2C_master.o
- .data          0x00000000        0x0 I2C_master.o
- .bss           0x00000000        0x0 I2C_master.o
- .text.i2c_read_ack
-                0x00000000       0x16 I2C_master.o
- .text.i2c_read_nack
-                0x00000000       0x16 I2C_master.o
- .text.i2c_transmit
-                0x00000000       0x5c I2C_master.o
- .text.i2c_receive
-                0x00000000       0x6c I2C_master.o
- .text.i2c_writeReg
-                0x00000000       0x64 I2C_master.o
- .text.i2c_readReg
-                0x00000000       0x86 I2C_master.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
@@ -59,7 +44,6 @@ Linker script and memory map
 Address of section .data set to 0x800100
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
 LOAD Hackathlon-HA.o
-LOAD I2C_master.o
 START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
 END GROUP
@@ -167,7 +151,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x136
+.text           0x00000000       0xb8
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -255,23 +239,11 @@ END GROUP
                 0x00000080                init_LCD
  .text.main     0x00000098       0x1c Hackathlon-HA.o
                 0x00000098                main
- .text.i2c_init
-                0x000000b4        0x8 I2C_master.o
-                0x000000b4                i2c_init
- .text.i2c_start
-                0x000000bc       0x4a I2C_master.o
-                0x000000bc                i2c_start
- .text.i2c_write
-                0x00000106       0x24 I2C_master.o
-                0x00000106                i2c_write
- .text.i2c_stop
-                0x0000012a        0x8 I2C_master.o
-                0x0000012a                i2c_stop
-                0x00000132                . = ALIGN (0x2)
+                0x000000b4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000132        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000132                _exit
-                0x00000132                exit
+ .fini9         0x000000b4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000000b4                _exit
+                0x000000b4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -290,11 +262,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000132        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000000b4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000136                _etext = .
+                0x000000b8                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000136
+.data           0x00800100        0x0 load address 0x000000b8
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -312,8 +284,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                PROVIDE (__bss_end, .)
-                0x00000136                __data_load_start = LOADADDR (.data)
-                0x00000136                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000b8                __data_load_start = LOADADDR (.data)
+                0x000000b8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -363,7 +335,6 @@ END GROUP
  *(.comment)
  .comment       0x00000000       0x30 Hackathlon-HA.o
                                  0x31 (size before relaxing)
- .comment       0x00000030       0x31 I2C_master.o
 
 .note.gnu.avr.deviceinfo
                 0x00000000       0x40
@@ -385,50 +356,41 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x90
+.debug_aranges  0x00000000       0x28
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x28 Hackathlon-HA.o
- .debug_aranges
-                0x00000028       0x68 I2C_master.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xba0
+.debug_info     0x00000000      0x7a2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x1ae Hackathlon-HA.o
- .debug_info    0x000007a2      0x3fe I2C_master.o
 
-.debug_abbrev   0x00000000      0x807
+.debug_abbrev   0x00000000      0x6bb
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2      0x119 Hackathlon-HA.o
- .debug_abbrev  0x000006bb      0x14c I2C_master.o
 
-.debug_line     0x00000000      0x5a4
+.debug_line     0x00000000      0x28e
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000133      0x15b Hackathlon-HA.o
- .debug_line    0x0000028e      0x316 I2C_master.o
 
-.debug_frame    0x00000000      0x190
+.debug_frame    0x00000000       0x34
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 Hackathlon-HA.o
- .debug_frame   0x00000034      0x15c I2C_master.o
 
-.debug_str      0x00000000      0x46b
+.debug_str      0x00000000      0x3d2
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x1ca Hackathlon-HA.o
                                 0x1fe (size before relaxing)
- .debug_str     0x000003d2       0x99 I2C_master.o
-                                0x229 (size before relaxing)
 
-.debug_loc      0x00000000      0x6b8
+.debug_loc
  *(.debug_loc)
- .debug_loc     0x00000000      0x6b8 I2C_master.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -448,12 +410,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xa0
+.debug_ranges   0x00000000       0x18
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x18 Hackathlon-HA.o
- .debug_ranges  0x00000018       0x88 I2C_master.o
 
 .debug_macro
  *(.debug_macro)
-OUTPUT(Hackathlon-HA.elf elf32-avr)
+OUTPUT(Hackathlon-HA_6_2.elf elf32-avr)
 LOAD linker stubs

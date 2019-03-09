@@ -69,13 +69,12 @@
   <avrgcc.linker.libraries.Libraries>
     <ListValues>
       <Value>libm</Value>
-      <Value>I2C_master.c</Value>
-      <Value>I2C_master.h</Value>
     </ListValues>
   </avrgcc.linker.libraries.Libraries>
   <avrgcc.linker.libraries.LibrarySearchPaths>
     <ListValues>
       <Value>C:\Users\lucian.florea\Desktop</Value>
+      <Value>C:\Users\lucian.florea\Documents\GitHub\Hackathlon-HA\Hackathlon-HA\Hackathlon-HA</Value>
     </ListValues>
   </avrgcc.linker.libraries.LibrarySearchPaths>
   <avrgcc.assembler.general.IncludePaths>
@@ -115,13 +114,12 @@
   <avrgcc.linker.libraries.Libraries>
     <ListValues>
       <Value>libm</Value>
-      <Value>I2C_master.c</Value>
-      <Value>I2C_master.h</Value>
     </ListValues>
   </avrgcc.linker.libraries.Libraries>
   <avrgcc.linker.libraries.LibrarySearchPaths>
     <ListValues>
       <Value>C:\Users\lucian.florea\Desktop</Value>
+      <Value>C:\Users\lucian.florea\Documents\GitHub\Hackathlon-HA\Hackathlon-HA\Hackathlon-HA</Value>
     </ListValues>
   </avrgcc.linker.libraries.LibrarySearchPaths>
   <avrgcc.assembler.general.IncludePaths>
@@ -135,6 +133,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Hackathlon-HA.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="I2C_master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="I2C_master.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
