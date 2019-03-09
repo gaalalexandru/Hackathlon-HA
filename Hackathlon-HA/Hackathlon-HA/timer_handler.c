@@ -21,6 +21,7 @@
 #include "timer_handler.h"
 //#include "reset_handler.h"
 //#include "uart_handler.h"
+#define TIMER2_TEST (0)
 
 /************************************************************************/
 /*	                          Global Variables                          */
@@ -82,7 +83,8 @@ void timer2_init(void)
 	#if ATMEGA48
 	TCCR2A = (1 << WGM21);
 	//TCCR2B = (1 << CS22);  //for 64 prescaler
-	TCCR2B = (1 << CS21)|(1 << CS20);  //for 32 prescaler
+	//TCCR2B = (1 << CS21)|(1 << CS20);  //for 32 prescaler
+	TCCR2B = (1 << CS22)|(1 << CS20);  //for 128 prescaler
 	#elif ATMEGA8
 	TCCR2 = (1 << WGM21)|(1 << CS21)|(1 << CS20);
 	#endif
@@ -100,7 +102,11 @@ void timer2_init(void)
 		//4000000 / 32 = 125000 (1 second)
 		// 125000 / 1000 = 125 (1 millisecond)
 		
-
+	//C: system clock 16 MHz
+		//timer2 clock prescaler (divider) = 128 => timer1 clock 125 kHz
+		//16000000 / 128 = 125000 (1 second)
+		// 125000 / 1000 = 125 (1 millisecond)
+	
 			
 	#if ATMEGA48
 	OCR2A = 125;
@@ -156,6 +162,15 @@ ISR (TIMER2_COMPA_vect)
 ISR (TIMER2_COMP_vect)
 #endif
 {
+	static uint8_t u8state = 0x00;
 	timer_system_ms++; //increment every 1 ms
+	#if TIMER2_TEST
+	u8state ^= 0x01;
+	if (u8state) {
+		PORTC |= 0x01;
+	} else {
+		PORTC &= ~0x01;
+	}
+	#endif
 }
 

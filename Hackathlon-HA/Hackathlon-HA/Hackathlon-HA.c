@@ -5,19 +5,15 @@
  *  Author: Ninja
  */ 
 
-//#define F_CPU 16000000
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
-
 #include "configuration.h"
 #include "timer_handler.h"
 #include "spi_handler.h"
 #include "uart_handler.h"
 #include "bme280/bme280.h"
 
-#define MAIN_LOG_ACTIV (1)
+#define MAIN_LOG_ACTIV (0)
 
 #if MAIN_LOG_ACTIV
 #define LOG_DEC(x,y) uart_send_string(x); uart_send_dec(y); uart_newline();
@@ -35,9 +31,18 @@
 //#define TOGGLE_STATUS_LED	(STATUS_LED_PORT ^= (1 << STATUS_LED_PIN))
 //#define STATUS_LED_ON		(STATUS_LED_PORT |= (1 << STATUS_LED_PIN))
 //#define STATUS_LED_OFF		(STATUS_LED_PORT &= ~(1 << STATUS_LED_PIN))
+typedef struct send_data {
+	uint8_t temp_msb;
+	uint8_t temp_lsb;
+	uint8_t hum_msb;
+	uint8_t hum_lsb;
+	uint8_t pres_msb;
+	uint8_t pres_lsb;
+	} stSendData ;
+	
 
 struct bme280_dev bme280_interf;
-
+extern uint32_t timer_system_ms;
 void print_bme280_data(struct bme280_data *comp_data);
 
 int main(void)
@@ -46,6 +51,8 @@ int main(void)
 	uint8_t u8state = 0;
 	struct bme280_uncomp_data uncomp_data;
 	struct bme280_data comp_data;
+	stSendData SendData;
+	uint32_t u32PresConv = 0;	
 	
 	DDRC = 0x01;
 	
@@ -60,9 +67,6 @@ int main(void)
 	LOG_STR("Compiled at: ",__TIME__);
 	LOG_STR("Drivers initialized: ","UART & SPI");
 
-	
-	
-	
 	#if USE_BME280
 	/* Sensor_0 interface over SPI with native chip select line */
 	bme280_interf.dev_id = 0;
@@ -85,17 +89,40 @@ int main(void)
 		} else {
 			PORTC &= ~0x01;
 		}
-
+		
 		rslt = bme280_set_sensor_mode(BME280_FORCED_MODE, &bme280_interf);  //trigger forced measurement
 		LOG_DEC("BME280 sensor force mode trigger with state: ",rslt);
 		bme280_interf.delay_ms(200);  //delay needed for measurement to complete
-		//rslt = bme280_get_raw_sensor_data(BME280_ALL, &uncomp_data, &bme280_interf);
-		//LOG_DEC("BME280 sensor RAW read with state: ",rslt);
+		rslt = bme280_get_raw_sensor_data(BME280_ALL, &uncomp_data, &bme280_interf);
+		LOG_DEC("BME280 sensor RAW read with state: ",rslt);
 		rslt = bme280_get_sensor_data(BME280_ALL, &comp_data, &bme280_interf);
+		
+		#if MAIN_LOG_ACTIV
 		print_bme280_data(&comp_data);
 		uart_send_string("BME280 sensor read with state: ");uart_send_dec(rslt);uart_newline();
+		uart_send_udec(timer_system_ms/1000); uart_newline();
+		#endif
+
+		SendData.temp_msb = (uint8_t)((comp_data.temperature)/100);
+		SendData.temp_lsb = (uint8_t)((comp_data.temperature)%100);
+		comp_data.humidity = comp_data.humidity / 10;
+		SendData.hum_msb = (uint8_t)((comp_data.humidity)/100);
+		SendData.hum_lsb = (uint8_t)((comp_data.humidity)%100);
+		u32PresConv = (comp_data.pressure * 10000) / 101325;
+		SendData.pres_msb = (uint8_t)((u32PresConv)/100);
+		SendData.pres_lsb = (uint8_t)((u32PresConv)%100);
 		
+		#if MAIN_LOG_ACTIV
+		uart_send_string("Temperature: "); uart_send_udec(SendData.temp_msb); uart_send_char('.'); uart_send_udec(SendData.temp_lsb); uart_send_string(" *C");uart_newline();
+		uart_send_string("Humidity: ");uart_send_udec(SendData.hum_msb);uart_send_char('.');uart_send_dec(SendData.hum_lsb);uart_send_string(" %");	uart_newline();
+		uart_send_string("Pressure: ");uart_send_string("0.");uart_send_udec(SendData.pres_msb);uart_send_dec(SendData.pres_lsb);uart_send_string(" Atm");uart_newline();		
 		timer_delay_ms(2000);
+		#else
+		timer_delay_ms(100);
+		uart_send_char('T');uart_send_char(SendData.temp_msb);uart_send_char(SendData.temp_lsb);uart_send_char('A');
+		uart_send_char('H');uart_send_char(SendData.hum_msb);uart_send_char(SendData.hum_lsb);uart_send_char('B');
+		uart_send_char('P');uart_send_char(SendData.pres_msb);uart_send_char(SendData.pres_lsb);uart_send_char('C');
+		#endif //MAIN_LOG_ACTIV
     }
 }
 

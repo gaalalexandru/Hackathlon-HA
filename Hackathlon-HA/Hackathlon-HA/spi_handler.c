@@ -74,10 +74,14 @@ uint8_t spi_transfer_generic(uint8_t u8data)
 * @param len		: Length of the array of data
 * @return	Zero for success, non-zero otherwise
 */
-void spi_transfer_sensors(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, uint16_t len)
+int8_t spi_transfer_sensors(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, uint16_t len)
 {
 	//select which Chip Select pin has	to be set low to activate the relevant device on the SPI bus
-	if(dev_id == bme280) CLEAR_CS_PIN(CS_BME280_PORT,CS_BME280_PIN);
+	if(dev_id == bme280) { 
+		CLEAR_CS_PIN(CS_BME280_PORT,CS_BME280_PIN);
+	} else {
+		return -1;
+	}
 	
 	spi_transfer_generic(reg_addr); // Write the register address, ignore the return
 	
@@ -86,7 +90,12 @@ void spi_transfer_sensors(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, u
 		reg_data[i] = spi_transfer_generic(reg_data[i]);  //write / read register content
 	}
 	
-	if(dev_id == bme280) SET_CS_PIN(CS_BME280_PORT,CS_BME280_PIN);
+	if(dev_id == bme280) {
+		SET_CS_PIN(CS_BME280_PORT,CS_BME280_PIN);
+	} else {
+		return -1;
+	}
+	return 0;
 }
 
 /* In BME280 Write Scenario 

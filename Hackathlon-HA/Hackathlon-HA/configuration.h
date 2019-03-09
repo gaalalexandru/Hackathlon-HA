@@ -61,7 +61,7 @@
 
 #define CS_BME280_DDR	DDRB
 #define CS_BME280_PORT	PORTB
-#define CS_BME280_PIN	(1)
+#define CS_BME280_PIN	(2)
 
 //////////////////////////////////////////////////////////////////////////
 //						 MEASUREMENTS CONFIGURATION						//
