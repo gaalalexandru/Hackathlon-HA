@@ -21,7 +21,7 @@
 #include "timer_handler.h"
 //#include "reset_handler.h"
 //#include "uart_handler.h"
-#define TIMER2_TEST (0)
+#define TIMER2_TEST (1)
 
 /************************************************************************/
 /*	                          Global Variables                          */
@@ -162,14 +162,15 @@ ISR (TIMER2_COMPA_vect)
 ISR (TIMER2_COMP_vect)
 #endif
 {
-	static uint8_t u8state = 0x00;
+	static uint16_t u16Counter = 0;
 	timer_system_ms++; //increment every 1 ms
 	#if TIMER2_TEST
-	u8state ^= 0x01;
-	if (u8state) {
-		PORTC |= 0x01;
-	} else {
-		PORTC &= ~0x01;
+	u16Counter++;
+	if(u16Counter == 100) {
+		u16Counter = 0;
+	}
+	if(u16Counter == 0) {
+		PORTC ^= 0x01;	
 	}
 	#endif
 }
