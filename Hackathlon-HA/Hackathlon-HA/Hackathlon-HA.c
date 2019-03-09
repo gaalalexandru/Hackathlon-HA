@@ -13,30 +13,29 @@
 #include <util/delay.h>
 #include <math.h>
 #include <stdlib.h>
-#include "I2C_master.h"
 
-#define DISPLAY_WRITE 0x4E 
-#define DISPLAY_READ 0xF
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
-void init_LCD(void){
+#define LCD_write 0x4E
 
-	i2c_start(DISPLAY_WRITE);
-	i2c_write(0x60); // set pointer to CRA
-	i2c_write(0x88); // write 0x70 to CRA
-	i2c_stop();
+LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 
+void setup()
+{
+	lcd.init();                      // initialize the lcd
+	lcd.backlight();
 }
 
-int main(void){
-	
-	
-	i2c_init();
-	init_LCD();
-	
-	while(1){
-
-		_delay_ms(1000);
+void loop()
+{
+	// when characters arrive over the serial port...
+		// wait a bit for the entire message to arrive
+		// clear the screen
+		lcd.clear();
+		// read all the available characters
+			lcd.init(LCD_write);
+			lcd.write("Nu!");
+		}
 	}
-	
-	return 0;
 }
