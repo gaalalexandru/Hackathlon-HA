@@ -1,0 +1,9 @@
+
+Hackathlon-HA/Hackathlon-HA.atsuo
+Hackathlon-HA/Debug/*.*
+*.o
+*.lss
+*.lss
+*.srec
+*.hex
+*.elf
