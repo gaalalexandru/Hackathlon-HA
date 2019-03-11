@@ -48,12 +48,14 @@
 /*! @file bme280.c
     @brief Sensor driver for BME280 sensor */
 #include "bme280.h"
+//#include "..\uart_handler.h"
 
 /**\name Internal macros */
 /* To identify osr settings selected by user */
 #define OVERSAMPLING_SETTINGS		UINT8_C(0x07)
 /* To identify filter and standby settings selected by user */
 #define FILTER_STANDBY_SETTINGS		UINT8_C(0x18)
+#define BME_INTERNAL_LOG	(0)
 
 /*!
  * @brief This internal API puts the device to sleep mode.
@@ -363,13 +365,22 @@ int8_t bme280_init(struct bme280_dev *dev)
 			/* Read the chip-id of bme280 sensor */
 			rslt = bme280_get_regs(BME280_CHIP_ID_ADDR, &chip_id, 1, dev);
 			/* Check for chip id validity */
+			#if BME_INTERNAL_LOG
+				uart_send_string("int string1: "); uart_send_dec(rslt); uart_newline();
+			#endif  //BME_INTERNAL_LOG
 			if ((rslt == BME280_OK) && (chip_id == BME280_CHIP_ID)) {
 				dev->chip_id = chip_id;
 				/* Reset the sensor */
 				rslt = bme280_soft_reset(dev);
+				#if BME_INTERNAL_LOG
+					uart_send_string("int string2: "); uart_send_dec(rslt); uart_newline();
+				#endif //BME_INTERNAL_LOG
 				if (rslt == BME280_OK) {
 					/* Read the calibration data */
 					rslt = get_calib_data(dev);
+					#if BME_INTERNAL_LOG
+						uart_send_string("int string3: "); uart_send_dec(rslt); uart_newline();
+					#endif
 				}
 				break;
 			}
@@ -401,11 +412,13 @@ int8_t bme280_get_regs(uint8_t reg_addr, uint8_t *reg_data, uint16_t len, const 
 			reg_addr = reg_addr | 0x80;
 		/* Read the data  */
 		rslt = dev->read(dev->dev_id, reg_addr, reg_data, len);
+		#if BME_INTERNAL_LOG
+			uart_send_string("rgd: "); uart_send_udec(*reg_data); uart_send_string(" rslt: "); uart_send_dec(rslt); uart_newline();
+		#endif //#if BME_INTERNAL_LOG
 		/* Check for communication error */
 		if (rslt != BME280_OK)
 			rslt = BME280_E_COMM_FAIL;
 	}
-
 	return rslt;
 }
 

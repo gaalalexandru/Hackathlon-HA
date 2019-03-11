@@ -5,7 +5,7 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
                               bme280/bme280.o (__udivmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
-                              uart_handler.o (__divmodsi4)
+                              Hackathlon-HA.o (__divmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_negsi2.o)
                               c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o) (__negsi2)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
@@ -37,11 +37,13 @@ Discarded input sections
                 0x00000000       0x7e bme280/bme280.o
  .text.bme280_setup_normal_mode_meas
                 0x00000000       0x42 bme280/bme280.o
- .text.bme280_get_raw_sensor_data
-                0x00000000       0x84 bme280/bme280.o
  .text          0x00000000        0x0 Hackathlon-HA.o
  .data          0x00000000        0x0 Hackathlon-HA.o
  .bss           0x00000000        0x0 Hackathlon-HA.o
+ .rodata.str1.1
+                0x00000000       0x24 Hackathlon-HA.o
+ .text.print_bme280_data
+                0x00000000       0x6c Hackathlon-HA.o
  .text          0x00000000        0x0 spi_handler.o
  .data          0x00000000        0x0 spi_handler.o
  .bss           0x00000000        0x0 spi_handler.o
@@ -55,12 +57,14 @@ Discarded input sections
  .text          0x00000000        0x0 uart_handler.o
  .data          0x00000000        0x0 uart_handler.o
  .bss           0x00000000        0x0 uart_handler.o
+ .text.uart_send_string
+                0x00000000       0x1e uart_handler.o
+ .text.uart_send_udec
+                0x00000000       0x3c uart_handler.o
+ .text.uart_send_dec
+                0x00000000       0x70 uart_handler.o
  .text.uart_send_uhex
                 0x00000000       0x6a uart_handler.o
- .text.uart_rx_buflen
-                0x00000000        0xc uart_handler.o
- .text.uart_get_char
-                0x00000000       0x22 uart_handler.o
  .text.uart_get_string
                 0x00000000       0x84 uart_handler.o
  .text.uart_flush
@@ -340,7 +344,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x18cc
+.text           0x00000000     0x1866
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -463,89 +467,86 @@ END GROUP
  .text.bme280_setup_weather_monitoring_meas
                 0x00001228       0x16 bme280/bme280.o
                 0x00001228                bme280_setup_weather_monitoring_meas
- .text.print_bme280_data
-                0x0000123e       0x6c Hackathlon-HA.o
-                0x0000123e                print_bme280_data
- .text.main     0x000012aa      0x1b0 Hackathlon-HA.o
-                0x000012aa                main
+ .text.bme280_get_raw_sensor_data
+                0x0000123e       0x84 bme280/bme280.o
+                0x0000123e                bme280_get_raw_sensor_data
+ .text.main     0x000012c2      0x1ae Hackathlon-HA.o
+                0x000012c2                main
  .text.spi_init
-                0x0000145a       0x1c spi_handler.o
-                0x0000145a                spi_init
+                0x00001470       0x1c spi_handler.o
+                0x00001470                spi_init
  .text.spi_transfer_generic
-                0x00001476        0xc spi_handler.o
-                0x00001476                spi_transfer_generic
+                0x0000148c        0xc spi_handler.o
+                0x0000148c                spi_transfer_generic
  .text.spi_transfer_sensors
-                0x00001482       0x6c spi_handler.o
-                0x00001482                spi_transfer_sensors
+                0x00001498       0x5e spi_handler.o
+                0x00001498                spi_transfer_sensors
  .text.timer0_init
-                0x000014ee       0x14 timer_handler.o
-                0x000014ee                timer0_init
+                0x000014f6       0x14 timer_handler.o
+                0x000014f6                timer0_init
  .text.timer2_init
-                0x00001502       0x22 timer_handler.o
-                0x00001502                timer2_init
+                0x0000150a       0x22 timer_handler.o
+                0x0000150a                timer2_init
  .text.timer_delay_ms
-                0x00001524       0x40 timer_handler.o
-                0x00001524                timer_delay_ms
+                0x0000152c       0x40 timer_handler.o
+                0x0000152c                timer_delay_ms
  .text.__vector_16
-                0x00001564       0x1c timer_handler.o
-                0x00001564                __vector_16
+                0x0000156c       0x1c timer_handler.o
+                0x0000156c                __vector_16
  .text.__vector_11
-                0x00001580       0x14 timer_handler.o
-                0x00001580                __vector_11
+                0x00001588       0x14 timer_handler.o
+                0x00001588                __vector_11
  .text.__vector_7
-                0x00001594       0x4a timer_handler.o
-                0x00001594                __vector_7
+                0x0000159c       0x78 timer_handler.o
+                0x0000159c                __vector_7
  .text.uart_init
-                0x000015de       0x54 uart_handler.o
-                0x000015de                uart_init
+                0x00001614       0x54 uart_handler.o
+                0x00001614                uart_init
  .text.uart_tx_buflen
-                0x00001632        0xc uart_handler.o
-                0x00001632                uart_tx_buflen
+                0x00001668        0xc uart_handler.o
+                0x00001668                uart_tx_buflen
  .text.uart_send_char
-                0x0000163e       0x46 uart_handler.o
-                0x0000163e                uart_send_char
- .text.uart_send_string
-                0x00001684       0x1e uart_handler.o
-                0x00001684                uart_send_string
- .text.uart_send_udec
-                0x000016a2       0x3c uart_handler.o
-                0x000016a2                uart_send_udec
- .text.uart_send_dec
-                0x000016de       0x70 uart_handler.o
-                0x000016de                uart_send_dec
+                0x00001674       0x46 uart_handler.o
+                0x00001674                uart_send_char
+ .text.uart_rx_buflen
+                0x000016ba        0xc uart_handler.o
+                0x000016ba                uart_rx_buflen
+ .text.uart_get_char
+                0x000016c6       0x22 uart_handler.o
+                0x000016c6                uart_get_char
  .text.__vector_19
-                0x0000174e       0x58 uart_handler.o
-                0x0000174e                __vector_19
+                0x000016e8       0x58 uart_handler.o
+                0x000016e8                __vector_19
  .text.__vector_18
-                0x000017a6       0x3c uart_handler.o
-                0x000017a6                __vector_18
+                0x00001740       0x3c uart_handler.o
+                0x00001740                __vector_18
  .text.libgcc.mul
-                0x000017e2       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_mulsi3.o)
-                0x000017e2                __mulsi3
+                0x0000177c       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_mulsi3.o)
+                0x0000177c                __mulsi3
  .text.libgcc.div
-                0x00001802       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x00001802                __udivmodsi4
+                0x0000179c       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000179c                __udivmodsi4
  .text.libgcc.div
-                0x00001846       0x2e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
-                0x00001846                __divmodsi4
+                0x000017e0       0x2e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
+                0x000017e0                __divmodsi4
  .text.libgcc.div
-                0x00001874       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_negsi2.o)
-                0x00001874                __negsi2
+                0x0000180e       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_negsi2.o)
+                0x0000180e                __negsi2
  .text.libgcc.mul
-                0x00001884       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_muluhisi3.o)
-                0x00001884                __muluhisi3
+                0x0000181e       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000181e                __muluhisi3
  .text.libgcc.mul
-                0x0000189a       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_mulshisi3.o)
-                0x0000189a                __mulshisi3
-                0x000018a0                __mulohisi3
+                0x00001834       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_mulshisi3.o)
+                0x00001834                __mulshisi3
+                0x0000183a                __mulohisi3
  .text.libgcc.mul
-                0x000018aa       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
-                0x000018aa                __umulhisi3
-                0x000018c8                . = ALIGN (0x2)
+                0x00001844       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x00001844                __umulhisi3
+                0x00001862                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000018c8        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000018c8                _exit
-                0x000018c8                exit
+ .fini9         0x00001862        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00001862                _exit
+                0x00001862                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -564,51 +565,50 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000018c8        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001862        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000018cc                _etext = .
+                0x00001866                _etext = .
 
-.data           0x00800100      0x132 load address 0x000018cc
+.data           0x00800100        0x0 load address 0x00001866
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
- .rodata.str1.1
-                0x00800100      0x131 Hackathlon-HA.o
  *(.gnu.linkonce.r*)
-                0x00800232                . = ALIGN (0x2)
- *fill*         0x00800231        0x1 
-                0x00800232                _edata = .
-                0x00800232                PROVIDE (__data_end, .)
+                0x00800100                . = ALIGN (0x2)
+                0x00800100                _edata = .
+                0x00800100                PROVIDE (__data_end, .)
 
-.bss            0x00800232       0xfc
-                0x00800232                PROVIDE (__bss_start, .)
+.bss            0x00800100       0xfe
+                0x00800100                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
+ .bss.u16Counter.1670
+                0x00800100        0x2 timer_handler.o
  .bss.timer_system_ms
-                0x00800232        0x4 timer_handler.o
-                0x00800232                timer_system_ms
- .bss.cr_flag   0x00800236        0x1 uart_handler.o
- .bss.rx_out    0x00800237        0x1 uart_handler.o
- .bss.rx_in     0x00800238        0x1 uart_handler.o
- .bss.tx_out    0x00800239        0x1 uart_handler.o
- .bss.tx_in     0x0080023a        0x1 uart_handler.o
- .bss.rxbuf     0x0080023b       0x80 uart_handler.o
- .bss.txbuf     0x008002bb       0x40 uart_handler.o
+                0x00800102        0x4 timer_handler.o
+                0x00800102                timer_system_ms
+ .bss.cr_flag   0x00800106        0x1 uart_handler.o
+ .bss.rx_out    0x00800107        0x1 uart_handler.o
+ .bss.rx_in     0x00800108        0x1 uart_handler.o
+ .bss.tx_out    0x00800109        0x1 uart_handler.o
+ .bss.tx_in     0x0080010a        0x1 uart_handler.o
+ .bss.rxbuf     0x0080010b       0x80 uart_handler.o
+ .bss.txbuf     0x0080018b       0x40 uart_handler.o
  *(COMMON)
- COMMON         0x008002fb       0x33 Hackathlon-HA.o
-                0x008002fb                bme280_interf
-                0x0080032e                PROVIDE (__bss_end, .)
-                0x000018cc                __data_load_start = LOADADDR (.data)
-                0x000019fe                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008001cb       0x33 Hackathlon-HA.o
+                0x008001cb                bme280_interf
+                0x008001fe                PROVIDE (__bss_end, .)
+                0x00001866                __data_load_start = LOADADDR (.data)
+                0x00001866                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080032e        0x0
+.noinit         0x008001fe        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080032e                _end = .
+                0x008001fe                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -693,62 +693,62 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3286
+.debug_info     0x00000000     0x3100
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4     0x1b4a bme280/bme280.o
- .debug_info    0x0000213e      0x9cf Hackathlon-HA.o
- .debug_info    0x00002b0d      0x176 spi_handler.o
- .debug_info    0x00002c83      0x1a7 timer_handler.o
- .debug_info    0x00002e2a      0x45c uart_handler.o
+ .debug_info    0x0000213e      0x82d Hackathlon-HA.o
+ .debug_info    0x0000296b      0x17c spi_handler.o
+ .debug_info    0x00002ae7      0x1bd timer_handler.o
+ .debug_info    0x00002ca4      0x45c uart_handler.o
 
-.debug_abbrev   0x00000000      0xce2
+.debug_abbrev   0x00000000      0xd04
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2      0x263 bme280/bme280.o
- .debug_abbrev  0x00000805      0x165 Hackathlon-HA.o
- .debug_abbrev  0x0000096a      0x102 spi_handler.o
- .debug_abbrev  0x00000a6c       0xeb timer_handler.o
- .debug_abbrev  0x00000b57      0x18b uart_handler.o
+ .debug_abbrev  0x00000805      0x185 Hackathlon-HA.o
+ .debug_abbrev  0x0000098a      0x104 spi_handler.o
+ .debug_abbrev  0x00000a8e       0xeb timer_handler.o
+ .debug_abbrev  0x00000b79      0x18b uart_handler.o
 
-.debug_line     0x00000000     0x11b3
+.debug_line     0x00000000     0x118b
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000133      0x814 bme280/bme280.o
- .debug_line    0x00000947      0x1f2 Hackathlon-HA.o
- .debug_line    0x00000b39      0x17b spi_handler.o
- .debug_line    0x00000cb4      0x1b8 timer_handler.o
- .debug_line    0x00000e6c      0x347 uart_handler.o
+ .debug_line    0x00000947      0x1da Hackathlon-HA.o
+ .debug_line    0x00000b21      0x14d spi_handler.o
+ .debug_line    0x00000c6e      0x1d6 timer_handler.o
+ .debug_line    0x00000e44      0x347 uart_handler.o
 
-.debug_frame    0x00000000      0x6e8
+.debug_frame    0x00000000      0x6e4
  *(.debug_frame)
  .debug_frame   0x00000000      0x380 bme280/bme280.o
  .debug_frame   0x00000380       0x50 Hackathlon-HA.o
- .debug_frame   0x000003d0       0x6c spi_handler.o
- .debug_frame   0x0000043c       0xdc timer_handler.o
- .debug_frame   0x00000518      0x1d0 uart_handler.o
+ .debug_frame   0x000003d0       0x68 spi_handler.o
+ .debug_frame   0x00000438       0xdc timer_handler.o
+ .debug_frame   0x00000514      0x1d0 uart_handler.o
 
-.debug_str      0x00000000      0xb80
+.debug_str      0x00000000      0xbe0
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x72e bme280/bme280.o
                                 0x801 (size before relaxing)
- .debug_str     0x00000936       0xb9 Hackathlon-HA.o
-                                0x46b (size before relaxing)
- .debug_str     0x000009ef       0x59 spi_handler.o
-                                0x1f0 (size before relaxing)
- .debug_str     0x00000a48       0x6d timer_handler.o
-                                0x212 (size before relaxing)
- .debug_str     0x00000ab5       0xcb uart_handler.o
+ .debug_str     0x00000936      0x10e Hackathlon-HA.o
+                                0x4e4 (size before relaxing)
+ .debug_str     0x00000a44       0x59 spi_handler.o
+                                0x1f7 (size before relaxing)
+ .debug_str     0x00000a9d       0x78 timer_handler.o
+                                0x21d (size before relaxing)
+ .debug_str     0x00000b15       0xcb uart_handler.o
                                 0x2ab (size before relaxing)
 
-.debug_loc      0x00000000     0x2b64
+.debug_loc      0x00000000     0x2ccb
  *(.debug_loc)
  .debug_loc     0x00000000     0x229e bme280/bme280.o
- .debug_loc     0x0000229e       0xea Hackathlon-HA.o
- .debug_loc     0x00002388      0x199 spi_handler.o
- .debug_loc     0x00002521       0xfd timer_handler.o
- .debug_loc     0x0000261e      0x546 uart_handler.o
+ .debug_loc     0x0000229e      0x21c Hackathlon-HA.o
+ .debug_loc     0x000024ba      0x1ce spi_handler.o
+ .debug_loc     0x00002688       0xfd timer_handler.o
+ .debug_loc     0x00002785      0x546 uart_handler.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -768,13 +768,13 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x1a8
+.debug_ranges   0x00000000      0x188
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x98 bme280/bme280.o
  .debug_ranges  0x00000098       0x18 Hackathlon-HA.o
- .debug_ranges  0x000000b0       0x40 spi_handler.o
- .debug_ranges  0x000000f0       0x48 timer_handler.o
- .debug_ranges  0x00000138       0x70 uart_handler.o
+ .debug_ranges  0x000000b0       0x20 spi_handler.o
+ .debug_ranges  0x000000d0       0x48 timer_handler.o
+ .debug_ranges  0x00000118       0x70 uart_handler.o
 
 .debug_macro
  *(.debug_macro)
