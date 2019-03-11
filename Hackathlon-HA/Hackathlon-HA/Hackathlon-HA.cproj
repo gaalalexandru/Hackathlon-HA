@@ -135,20 +135,12 @@
     <Compile Include="Hackathlon-HA.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="LiquidCrystal_I2C.h">
+    <Compile Include="I2C_master.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Wire.h">
+    <Compile Include="I2C_master.h">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LiquidCrystal_I2C.cpp">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="Wire.cpp">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
